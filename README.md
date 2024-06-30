@@ -1,5 +1,10 @@
 # Yandex school task
 
+# Запуск
+- npm install
+- npm run start:main
+- npm run start:actors
+
 ## Шапка:
 
 - Позиционируется липко (стики); :heavy_check_mark:
@@ -15,9 +20,9 @@
 
 ## Реализована страница списка фильмов: 
 
-Поиск:
+### Поиск:
 - Поиск происходит во время ввода пользователем символов. Дёргаем ручку /search; :heavy_check_mark:
-Фильтры:
+### Фильтры:
 - Реализованы фильтры с dropdown; :heavy_check_mark:
 - Фильтры сохраняются в query-params; :heavy_check_mark:
 - Реализован список фильмов с пагинацией; :heavy_check_mark:
