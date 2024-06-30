@@ -31,8 +31,10 @@ const SelectInput = ({label, placeholder, defaultValue = "", data, onChange}: Se
         for (const k in inputData) {
             if (inputData[k] === value) {
                 onChange && onChange(k);
+                return;
             }
         }
+        onChange(value);
     }, [value]);
     return (
         <div className={'flex flex-col gap-1 items-start'}>
