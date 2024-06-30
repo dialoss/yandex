@@ -6,33 +6,8 @@ import CardList from '@/components/CardList/CardList';
 import Loader from "@/ui/Loader/Loader";
 import {SERVER_URL} from "@/api";
 import {Simulate} from "react-dom/test-utils";
+import {GENRES, YEARS} from "@/pages/Main/config";
 
-
-const GENRES = {
-    '0': 'Не выбран',
-    comedy: 'Комедия',
-    drama: 'Драма',
-    action: 'Боевик',
-    thriller: 'Триллер',
-    horror: 'Ужасы',
-    family: 'Семейный',
-    cartoon: 'Анимированный',
-    fantasy: 'Фэнтези',
-    romance: 'Романтика',
-    adventure: 'Приключения',
-    musical: 'Мьюзикл',
-    war: 'Военный',
-}
-
-const YEARS = {
-    '0': 'Не выбран',
-    '2009': '2009',
-    '2008': '2008',
-    '2007': '2007',
-    '2006': '2006',
-    '1990-2005': '1990-2005',
-    '1950-1989': '1950-1989',
-}
 
 function debounce(func) {
     let timeout = null;

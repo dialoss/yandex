@@ -1,30 +1,51 @@
-# React + TypeScript + Vite
+# Yandex school task
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Шапка:
 
-Currently, two official plugins are available:
+Позиционируется липко (стики); [x]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Авторизация:
 
-## Expanding the ESLint configuration
+Для реализации модального окна используется портал; [x]
+После успешной авторизации кнопка «Войти» меняется на заглушку иконки пользователя и кнопку «Выйти»; [x]
+Сохраняем авторизационный токен из ответа ручки бэка /login (например, в localStorage); [x]
+С токеном стоит работать через thunk;
+По клику на кнопку «Выйти» удаляем токен и снимаем авторизацию; [x]
+При инициализации приложения проверяем авторизационный токен; [x]
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Реализована страница списка фильмов: 
 
-- Configure the top-level `parserOptions` property like this:
+Поиск:
+Поиск происходит во время ввода пользователем символов. Дёргаем ручку /search; [x]
+Фильтры:
+Реализованы фильтры с dropdown; [x]
+Фильтры сохраняются в query-params; [x]
+Реализован список фильмов с пагинацией; [x]
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Страница фильма:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Реализована работа с получением данных: [x]
+Дёргаем ручку /movie:id; [x]
+Соответствующие данные отрисованы; [x]
+Возможность поставить оценку: [x]
+Оценку для фильма достаём из ручки /movie/:id; [x]
+Если пользователь авторизован, даём возможность поставить оценку — запрос мутации; 
+После выставления оценки обновляем кеш запроса /movie/:id; 
+
+## Общий функционал:
+
+Реализовать единообразную обработку ошибок для запросов; [x]
+Реализован лоадер; [x]
+Используем debounce для поиска фильма и выставления оценки; [x]
+
+## Стор:
+
+Используется rtk и rtk-query;
+Данные корректно разбиты на модули (пример — авторизация, searchParams из фильтров); [x]
+Селекторы написаны оптимально (нет переизбытка дублирования); 
+
+## Миграция на Next:
+
+Реализована миграция с использованием SSR;
+Для картинок используется Image некста. Скрины фильма, которые вне вьюпорта грузятся лениво;
+Фильтры реализованы с помощью сегментов вместо query-параметров.
