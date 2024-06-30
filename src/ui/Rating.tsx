@@ -56,7 +56,7 @@ function Rating({amount, callback, submit, reset}: RatingProps) {
                 }
             </div>
             <div className={'flex gap-2 w-[100%] justify-between px-[6px]'}>{Array(5).fill(0).map((it, i) =>
-                <div>{i + 1}</div>)}</div>
+                <p className={'font-bold'}>{i + 1}</p>)}</div>
         </div>
     );
 }

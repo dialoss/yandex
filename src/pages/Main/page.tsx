@@ -4,8 +4,7 @@ import SearchInput from "@/ui/Input/SearchInput";
 import SelectInput from "@/ui/Input/SelectInput";
 import CardList from '@/components/CardList/CardList';
 import Loader from "@/ui/Loader/Loader";
-import {SERVER_URL} from "@/api";
-import {Simulate} from "react-dom/test-utils";
+import {getList} from "@/api";
 import {GENRES, YEARS} from "@/pages/Main/config";
 
 
@@ -25,18 +24,6 @@ type IFilters = {
     year: string;
     page: number;
     title: string;
-}
-
-function applyFilter(url, name, value) {
-    let state = new URL(window.location.href);
-    if (!value) state.searchParams.delete(name);
-    else state.searchParams.set(name, value);
-    window.history.pushState({}, "", state.toString());
-
-    if (!value) return url;
-    const u = new URL(url);
-    u.searchParams.set(name, value);
-    return u.toString();
 }
 
 function getFilters(): IFilters {
@@ -64,11 +51,8 @@ const Page = () => {
 
     useLayoutEffect(() => {
         debounce(() => {
-            let url = SERVER_URL + "/api/v1/search"
-            Object.entries(filters).map(([key, value]) => url = applyFilter(url, key, value));
-
             setLoading(true);
-            fetch(url).then(r => r.json()).then(d => {
+            getList(filters).then(d => {
                 setCards(d.search_result);
                 setTotal(d.total_pages);
                 setLoading(false)

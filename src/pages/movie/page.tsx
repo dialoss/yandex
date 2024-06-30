@@ -6,7 +6,7 @@ import Carousel from "@/ui/Carousel";
 import Container from "@/ui/Container";
 import Loader from "@/ui/Loader/Loader";
 import RatingInput from "@/ui/Input/RatingInput";
-import {SERVER_URL, setUserRating} from "@/api";
+import {getUnique, SERVER_URL, setUserRating} from "@/api";
 
 
 type Actor = {
@@ -31,7 +31,7 @@ const Page = () => {
     const params = useParams();
     const [data, setData] = useState<IFilm>({actors: []});
     useEffect(() => {
-        fetch(SERVER_URL + "/api/v1/movie/" + params.id).then(r => r.json()).then(d => setData(d))
+        getUnique(params.id).then(d => setData(d))
     }, []);
 
     const info = {

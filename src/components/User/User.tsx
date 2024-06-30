@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Modal from "@/ui/Modal/Modal";
 import Form from "@/components/Form";
 import {actions} from "@/store/app";
-import {SERVER_URL} from "@/api";
+import {SERVER_URL, userLogin, UserLoginData} from "@/api";
 
 function UserIcon() {
     return <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,25 +21,9 @@ const User = () => {
     const dispatch = useDispatch();
     const [alert, setAlert] = useState("");
 
-    function login(data: { data: { username: string; password: string } }) {
-        try {
-            fetch(SERVER_URL + "/api/v1/login/", {
-                method: "POST",
-                headers: {
-                    'content-type': "application/json"
-                },
-                body: JSON.stringify(data)
-            }).then(r => r.json()).then(d => {
-                if (!d.token) {
-                    setAlert(d.error);
-                    return
-                }
-                window.localStorage.setItem("token", d.token);
-                setModal(false);
-            })
-        } catch (err) {
-            console.log(err)
-        }
+    function login(data: UserLoginData) {
+        userLogin(data);
+        setModal(false);
     }
 
     function logout() {
