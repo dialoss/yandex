@@ -5,7 +5,7 @@ export const SERVER_URL = "http://localhost:3030";
 
 
 export function setUserRating(movieId: number, user_rate: number) {
-    axiox.post(SERVER_URL + "/api/v1/rateMovie", {movieId, user_rate})
+    axios.post(SERVER_URL + "/api/v1/rateMovie", {movieId, user_rate})
 }
 
 export type UserLoginData = {
