@@ -1,7 +1,10 @@
 import React from 'react';
-import Rating from "@/ui/Card/Rating";
+
 import Tile from "@/ui/Tile";
 import {Link} from "react-router-dom";
+import Rating from "@/ui/Rating";
+import RatingInput from "@/ui/Input/RatingInput";
+import {setUserRating} from "@/api";
 
 
 export interface ICard {
@@ -19,12 +22,12 @@ const Card = ({title, poster, rating, genre, description, id, release_year}: ICa
     return (
         <Tile className={'w-[100%] block '}>
             <Link to={"/movie/" + id}>
-                <div className={'flex'}>
+                <div className={'flex relative'}>
                     <div className={'rounded-[8px] overflow-hidden min-w-[100px] w-[100px] h-[100%]'}>
                         <img src={poster} alt="" className={'w-[100%]'}/>
                     </div>
                     <div className={'flex flex-col gap-3 ml-4'}>
-                        <h1 className={'font-bold text-2xl'}>{title}</h1>
+                        <h1 className={'font-bold text-2xl max-w-[80%]'}>{title}</h1>
                         <div className={'flex gap-4 justify-start'}>
                             <div className={'flex flex-col gap-3 min-w-[100px]'}>
                                 {
@@ -42,7 +45,7 @@ const Card = ({title, poster, rating, genre, description, id, release_year}: ICa
                             </div>
                         </div>
                     </div>
-                    <Rating amount={rating}/>
+                    <RatingInput  onChange={r => setUserRating(id, r)} defaultAmount={+rating}/>
                 </div>
             </Link>
         </Tile>

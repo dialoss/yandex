@@ -1,13 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 body {
     box-sizing: border-box;
     padding: 0;
+    width: 100%;
+    overflow-x: hidden;
     margin: 0;
     background: #EDEDED;
 }
 
-img,video {
+img, video {
     max-width: none !important;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+

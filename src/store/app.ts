@@ -12,7 +12,7 @@ interface IState {
 export const appSlice = createSlice({
     name: "app",
     initialState: {
-        user: {auth: false},
+        user: {auth: true},
     } as IState,
     reducers: {
         setUser: (state, {payload: user}) => {

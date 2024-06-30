@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 function Arrow() {
     return <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,20 +12,28 @@ function Arrow() {
 type SelectInputProps = {
     label: string
     placeholder: string
-    data: [key: string, string];
+    data: {[key: string]: string | number};
     onChange: (result: string) => void;
+    defaultValue?: string;
 }
 
-const SelectInput = ({label, placeholder, data, onChange}: SelectInputProps) => {
+const SelectInput = ({label, placeholder, defaultValue = "", data, onChange}: SelectInputProps) => {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(data[defaultValue]);
     const ref = useRef<HTMLInputElement>();
     let inputData = {...data};
     if (value) {
         for (const key in inputData) {
-            if (!inputData[key].includes(value.toLowerCase())) delete inputData[key];
+            if (!inputData[key].toLowerCase().includes(value.toLowerCase())) delete inputData[key];
         }
     }
+    useEffect(() => {
+        for (const k in inputData) {
+            if (inputData[k] === value) {
+                onChange && onChange(k);
+            }
+        }
+    }, [value]);
     return (
         <div className={'flex flex-col gap-1 items-start'}>
             <label htmlFor="input">{label}</label>
@@ -38,16 +46,16 @@ const SelectInput = ({label, placeholder, data, onChange}: SelectInputProps) => 
                     placeholder={placeholder}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
-                    onBlur={() => setTimeout(() => setOpen(false), 100)}
+                    onBlur={() => {
+                        setValue(ref.current?.value)
+                        setTimeout(() => open && setOpen(false), 100);
+                    }}
                 />
                 {open && <div
                     className={'overflow-y-auto p-2 rounded z-10 shadow-md max-h-[300px] w-[100%] absolute top-[130%] flex flex-col bg-white'}>
                     {Object.values(inputData).length ? Object.entries(inputData).map(([key, value]) => <div
                         className={'p-1 rounded hover:cursor-pointer hover:bg-slate-200 transition-all duration-100'}
-                        onClick={() => {
-                            onChange && onChange(key);
-                            setValue(value);
-                        }}>
+                        onClick={() => setValue(value)}>
                         {value}
                     </div>) : <div>Ничего не найдено</div>}
                 </div>}

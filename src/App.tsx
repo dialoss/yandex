@@ -1,27 +1,34 @@
 import Header from "@/ui/Header/Header";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import Main from "@/pages/Main";
 import Movie from "@/pages/movie";
 import React from "react";
 
+const Layout = () => (
+    <>
+        <Header/>
+        <Outlet/>
+    </>
+);
+
 export const router = createBrowserRouter([
     {
-        path: "/",
-        element: <Main/>,
+        element: <Layout/>,
+        children: [
+            {
+                path: "/",
+                element: <Main/>,
+            },
+            {
+                path: "/movie/:id",
+                element: <Movie/>
+            }
+        ]
     },
-    {
-        path: "/movie/:id",
-        element: <Movie/>
-    }
 ]);
 
 function App() {
-    return <>
-        <Header/>
-        <RouterProvider router={router}/>
-
-    </>
-
+    return <RouterProvider router={router}/>
 }
 
 export default App
