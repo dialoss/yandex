@@ -1,5 +1,5 @@
-import axiox from 'axios';
 import axios from 'axios';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const SERVER_URL = "http://localhost:3030";
 
@@ -47,3 +47,16 @@ export function getList(params: object) {
 
     return axios.get(url).then(({data}) => data);
 }
+
+export const movieApi = createApi({
+    reducerPath: 'movieApi',
+    baseQuery: fetchBaseQuery({ baseUrl: SERVER_URL + "/api/v1/" }),
+    endpoints: (builder) => ({
+        getMovie: builder.query({
+            query: (id) => `movie/${id}`,
+        }),
+        getList: builder.query({
+            query: () => "search"
+        })
+    }),
+})
